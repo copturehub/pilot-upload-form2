@@ -1,5 +1,4 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-import type { UploadthingPlugin } from "uploadthing/types";
 
 const f = createUploadthing();
 
