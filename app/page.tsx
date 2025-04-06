@@ -1,7 +1,7 @@
-// app/page.tsx
 "use client";
 
-import { UploadButton } from "@/utils/uploadthing";
+import { UploadDropzone } from "@/utils/uploadthing";
+import "@uploadthing/react/styles.css";
 import { useState } from "react";
 
 export default function Home() {
@@ -9,44 +9,54 @@ export default function Home() {
   const [projectName, setProjectName] = useState("");
 
   return (
-    <main className="p-8 max-w-xl mx-auto space-y-4">
-      <h1 className="text-2xl font-bold">Ladda upp bilder</h1>
+    <main className="flex min-h-screen flex-col items-center justify-center p-8">
+      <h1 className="text-3xl font-bold mb-6">Ladda upp filer</h1>
 
-      <input
-        type="text"
-        placeholder="Pilotens namn"
-        value={pilotName}
-        onChange={(e) => setPilotName(e.target.value)}
-        className="border p-2 w-full"
-      />
+      <div className="w-full max-w-md mb-4">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Pilotens namn
+        </label>
+        <input
+          type="text"
+          value={pilotName}
+          onChange={(e) => setPilotName(e.target.value)}
+          className="w-full border border-gray-300 rounded p-2"
+          placeholder="t.ex. Gustav Bagge"
+        />
+      </div>
 
-      <input
-        type="text"
-        placeholder="Projektnamn"
-        value={projectName}
-        onChange={(e) => setProjectName(e.target.value)}
-        className="border p-2 w-full"
-      />
+      <div className="w-full max-w-md mb-6">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Projektnamn
+        </label>
+        <input
+          type="text"
+          value={projectName}
+          onChange={(e) => setProjectName(e.target.value)}
+          className="w-full border border-gray-300 rounded p-2"
+          placeholder="t.ex. StoraEnso-24-område-B"
+        />
+      </div>
 
-      <UploadButton
+      <UploadDropzone
         endpoint="pilotUploader"
-        onClientUploadComplete={() => {
-          alert("✅ Filen är uppladdad!");
+        onClientUploadComplete={(res) => {
+          console.log("✅ Upload complete!", res);
+          alert("Uppladdning klar!");
         }}
         onUploadError={(error: Error) => {
-          alert(`❌ Fel vid uppladdning: ${error.message}`);
+          alert(`Fel: ${error.message}`);
         }}
         appearance={{
-          button: "bg-black text-white px-4 py-2 rounded mt-4",
-        }}
-        content={{
-          button({ ready }) {
-            return ready ? "Välj fil att ladda upp" : "Laddar...";
+          button({ ready, isUploading }) {
+            return "bg-blue-600 text-white rounded px-4 py-2";
           },
         }}
-        input={{
-          pilotName,
-          projectName,
+        config={{
+          metadata: {
+            pilotName,
+            projectName,
+          },
         }}
       />
     </main>
