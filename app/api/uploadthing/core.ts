@@ -5,7 +5,7 @@ import { createUploadthing, type FileRouter } from "uploadthing/server";
 const f = createUploadthing();
 
 export const ourFileRouter = {
-  pilotUploader: f(["image", "video", "application"]) // tillåtna typer
+  pilotUploader: f(["image", "video", "text", "pdf", "audio"]) // giltiga MIME-kategorier
     .input({ pilotName: String, projectName: String }) // typad metadata
     .onUploadComplete(({ file, metadata }) => {
       console.log("✅ Upload complete!");
