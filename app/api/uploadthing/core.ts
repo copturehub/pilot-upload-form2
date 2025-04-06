@@ -1,16 +1,16 @@
 import { createUploadthing, type FileRouter } from "uploadthing/server";
+import { z } from "zod";
 
 const f = createUploadthing();
 
-// Typ för metadata
-type Metadata = {
-  pilotName: string;
-  projectName: string;
-};
-
 export const ourFileRouter = {
   pilotUploader: f(["image", "video", "text", "pdf", "audio"])
-    .input<Metadata, undefined>() // ✅ Lägg till andra typargumentet
+    .input(
+      z.object({
+        pilotName: z.string(),
+        projectName: z.string(),
+      })
+    )
     .onUploadComplete(({ file, metadata }) => {
       console.log("✅ Upload complete!");
       console.log("Filename:", file.name);
