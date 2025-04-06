@@ -10,11 +10,11 @@ type Metadata = {
 
 export const ourFileRouter = {
   pilotUploader: f(["image", "video", "text", "pdf", "audio"])
-    .input<Metadata, unknown>() // 👈 Korrekt typning av metadata
+    .input<Metadata, unknown>({}) // ✅ Kalla funktionen korrekt
     .onUploadComplete(({ file, metadata }) => {
       console.log("✅ Upload complete!");
       console.log("Filename:", file.name);
-      console.log("Pilot:", metadata!.pilotName); // 👈 Utropstecken krävs
+      console.log("Pilot:", metadata!.pilotName); // ✅ utropstecken för säkerhets skull
       console.log("Project:", metadata!.projectName);
     }),
 } satisfies FileRouter;
