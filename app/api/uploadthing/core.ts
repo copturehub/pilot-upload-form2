@@ -10,7 +10,10 @@ type Metadata = {
 
 export const ourFileRouter = {
   pilotUploader: f(["image", "video", "text", "pdf", "audio"])
-    .input<Metadata, unknown>() // ✅ KORREKT: två typ-argument
+    .input<Metadata, unknown>({
+      pilotName: String,
+      projectName: String,
+    }) // ✅ Nu med korrekt input-definition
     .onUploadComplete(({ file, metadata }) => {
       console.log("✅ Upload complete!");
       console.log("Filename:", file.name);
