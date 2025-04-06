@@ -24,7 +24,10 @@ export default function HomePage() {
     formData.append("route", "pilotUploader");
     formData.append(
       "metadata",
-      JSON.stringify({ pilotName: pilot, projectName: project })
+      JSON.stringify({
+        pilotName: pilot,
+        projectName: project,
+      })
     );
 
     try {
