@@ -1,4 +1,3 @@
-// app/page.tsx
 "use client";
 
 import { useState } from "react";
@@ -17,18 +16,15 @@ export default function HomePage() {
     }
 
     const formData = new FormData();
-    for (const file of files) {
+    for (const file of Array.from(files)) {
       formData.append("file", file);
     }
 
     formData.append("route", "pilotUploader");
-    formData.append(
-      "metadata",
-      JSON.stringify({
-        pilotName: pilot,
-        projectName: project,
-      })
-    );
+    formData.append("metadata", JSON.stringify({
+      pilotName: pilot,
+      projectName: project,
+    }));
 
     try {
       const res = await fetch("/api/uploadthing", {
