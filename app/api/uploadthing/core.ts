@@ -9,7 +9,7 @@ type Metadata = {
 
 export const ourFileRouter = {
   pilotUploader: f(["image", "video", "text", "pdf", "audio"])
-    .input<Metadata>(() => ({
+    .input<Metadata, Metadata>(() => ({
       pilotName: "placeholder",
       projectName: "placeholder",
     }))
