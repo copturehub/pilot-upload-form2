@@ -1,7 +1,7 @@
 // app/api/uploadthing/core.ts
 
 import { createUploadthing, type FileRouter } from "uploadthing/server";
-import { z } from "zod"; // 👈 Lägg till denna rad
+import { z } from "zod";
 
 const f = createUploadthing();
 
@@ -13,10 +13,13 @@ export const ourFileRouter = {
         projectName: z.string(),
       })
     )
-    .onUploadComplete(({ file, metadata }) => {
+    .onUploadComplete(({ file, metadata }: {
+      file: { name: string },
+      metadata: { pilotName: string; projectName: string }
+    }) => {
       console.log("✅ Upload complete!");
       console.log("Filename:", file.name);
-      console.log("Pilot:", metadata!.pilotName);
-      console.log("Project:", metadata!.projectName);
+      console.log("Pilot:", metadata.pilotName);
+      console.log("Project:", metadata.projectName);
     }),
 } satisfies FileRouter;
