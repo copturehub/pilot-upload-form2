@@ -1,8 +1,8 @@
 "use client";
 
-import { UploadDropzone } from "@/utils/uploadthing";
-import "@uploadthing/react/styles.css";
+import { UploadDropzone } from "../utils/uploadthing";
 import { useState } from "react";
+import "@uploadthing/react/styles.css";
 
 export default function Home() {
   const [pilotName, setPilotName] = useState("");
